@@ -11,6 +11,6 @@ def filter_datum(fields: List[str], redaction: str,
     for field in fields:
         b = re.search(r'{}=.*'.format(field), m)
         assert b is not None
-        m = re.sub(b.group().split(';')[0],
+        m = re.sub(b.group().split(separator)[0],
                    '{}={}'.format(field, redaction), m)
     return m
