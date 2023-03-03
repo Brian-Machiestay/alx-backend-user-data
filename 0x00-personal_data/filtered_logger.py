@@ -25,7 +25,7 @@ def get_logger() -> logging.Logger:
     log_ob = logging.Logger("user_data")
     log_ob.setLevel(logging.INFO)
     strhand = StreamHandler()
-    strhand.setFormatter(RedactingFormatter)
+    strhand.setFormatter(RedactingFormatter(PII_FIELDS))
     log_ob.addHandler(strhand)
     return log_ob
 
