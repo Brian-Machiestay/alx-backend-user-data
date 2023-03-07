@@ -7,6 +7,7 @@ from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
+from typing import Any, List
 
 
 app = Flask(__name__)
@@ -41,11 +42,12 @@ def forbidden(error) -> str:
 
 
 @app.before_request
-def before_request() -> None:
+def before_request() -> Any:
     """execute this function before any other request"""
     if auth is None:
         return
-    paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    paths: List[str] = ['/api/v1/status/',
+                        '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if not auth.require_auth(request.path, paths):
         return
     if auth.authorization_header(request) is None:
