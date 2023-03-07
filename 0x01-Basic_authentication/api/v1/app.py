@@ -42,7 +42,7 @@ def forbidden(error) -> str:
 
 
 @app.before_request
-def before_request() -> Any:
+def before_request():
     """execute this function before any other request"""
     if auth is None:
         return
