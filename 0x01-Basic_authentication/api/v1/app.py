@@ -8,6 +8,7 @@ from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
 from typing import Any, List
+from api.v1.auth.auth import Auth
 
 
 app = Flask(__name__)
@@ -16,7 +17,6 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 
 if os.environ['AUTH_TYPE'] == 'auth':
-    from api.v1.auth.auth import Auth
     auth = Auth()
 
 
