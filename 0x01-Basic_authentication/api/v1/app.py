@@ -9,6 +9,7 @@ from flask_cors import (CORS, cross_origin)
 import os
 from typing import Any, List
 from api.v1.auth.auth import Auth
+from api.v1.auth.basic_auth import BasicAuth
 
 
 app = Flask(__name__)
@@ -19,6 +20,8 @@ auth = None
 if __name__ == '__main__':
     if os.environ['AUTH_TYPE'] == 'auth':
         auth = Auth()
+    elif os.environ['AUTH_TYPE'] == 'basic_auth':
+        auth = BasicAuth()
 
 
 @app.errorhandler(404)
