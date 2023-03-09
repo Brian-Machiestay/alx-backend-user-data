@@ -10,6 +10,7 @@ import os
 from typing import Any, List
 from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
+from api.v1.auth.session_auth import SessionAuth
 
 
 app = Flask(__name__)
@@ -22,6 +23,8 @@ if __name__ == '__main__':
         auth = Auth()
     elif os.environ['AUTH_TYPE'] == 'basic_auth':
         auth = BasicAuth()
+    elif os.environ['AUTH_TYPE'] == 'session_auth':
+        auth = Session_auth()
 
 
 @app.errorhandler(404)
