@@ -24,7 +24,7 @@ if __name__ == '__main__':
     elif os.environ['AUTH_TYPE'] == 'basic_auth':
         auth = BasicAuth()
     elif os.environ['AUTH_TYPE'] == 'session_auth':
-        auth = Session_auth()
+        auth = SessionAuth()
 
 
 @app.errorhandler(404)
