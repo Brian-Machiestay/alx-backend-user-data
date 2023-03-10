@@ -43,5 +43,6 @@ class Auth:
         """create a session cookie for storing session ids"""
         if request is None:
             return None
-        sess_name = os.environ['SESSION_NAME']
-        return request.cookies.get(sess_name)
+        if os.environ.get('SESSION_NAME') is not None:
+            sess_name = os.environ['SESSION_NAME']
+            return request.cookies.get(sess_name)
