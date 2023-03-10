@@ -33,3 +33,17 @@ def login():
     cookie_name = os.environ['SESSION_NAME']
     resp.set_cookie(cookie_name, sess_id)
     return resp
+
+
+@app_views.route('/auth_session/logout',
+                 methods=['DELETE'], strict_slashes=False)
+def logout():
+    """logout of this session"""
+    from api.v1.app import auth
+    from api.v1.auth.session_auth import SessionAuth
+    if os.environ['AUTH_TYPE'] == 'session_auth':
+        auth = SessionAuth()
+    des = auth.destroy_session(request)
+    if not des:
+        abort(404)
+    return jsonify({}), 200
