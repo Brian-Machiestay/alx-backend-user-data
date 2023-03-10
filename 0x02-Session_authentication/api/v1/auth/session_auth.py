@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """create a session_auth class"""
 from api.v1.auth.auth import Auth
+from models.user import User
 import uuid
 
 
@@ -26,3 +27,10 @@ class SessionAuth(Auth):
             return None
         usr_id = self.user_id_by_session_id.get(session_id)
         return usr_id
+
+    def current_user(self, request=None):
+        """return a user instance based on cookie value"""
+        sess_id = self.session_cookie(request)
+        usr_id = self.user_id_for_session_id(sess_id)
+        if usr_id is not None:
+            return User.get(usr_id)
