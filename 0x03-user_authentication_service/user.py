@@ -2,14 +2,14 @@
 """the user class to manage authentication service"""
 
 
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base # type: ignore
+from sqlalchemy import Column, Integer, String # type: ignore
 
 
 Base = declarative_base()
 
 
-class User(Base):
+class User(Base): # type: ignore
     """A user class subclasses the declarative base"""
 
     __tablename__ = 'users'

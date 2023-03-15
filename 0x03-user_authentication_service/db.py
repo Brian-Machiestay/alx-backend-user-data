@@ -3,13 +3,13 @@
 """
 
 
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.session import Session
-from user import User
+from sqlalchemy import create_engine # type: ignore
+from sqlalchemy.ext.declarative import declarative_base # type: ignore
+from sqlalchemy.orm import sessionmaker # type: ignore
+from sqlalchemy.orm.session import Session # type: ignore
+from user import User # type: ignore
 
-from user import Base
+from user import Base # type: ignore
 
 
 class DB:
