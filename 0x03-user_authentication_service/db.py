@@ -42,7 +42,7 @@ class DB:
         self._session.commit()
         return usr
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """filter user by key worded arguments"""
         objs = self._session.query(User).filter_by(**kwargs).first()
         if objs is None:
