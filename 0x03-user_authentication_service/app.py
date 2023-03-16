@@ -3,6 +3,7 @@
 
 
 from flask import Flask, jsonify, request, abort, make_response
+from flask import redirect, url_for
 from auth import Auth
 
 
@@ -40,6 +41,17 @@ def login():
     resp = make_response(jsonify({"email": email, "message": "logged in"}))
     resp.set_cookie("session_id", sess_id)
     return resp
+
+
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """log this user out of the the session"""
+    sess_id = request.cookie.get('session_id')
+    usr = AUTH.get_user_from_session_id(sess_id)
+    if usr is not None:
+        AUTH.destroy_session(usr.id)
+        return redirect(url_for('root'))
+    abort(403)
 
 
 if __name__ == "__main__":
