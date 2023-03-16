@@ -48,3 +48,12 @@ class DB:
         if objs is None:
             raise NoResultFound
         return objs
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """update a user data in the database"""
+        usr = self.find_user_by(id=user_id)
+        for key in kwargs.keys():
+            if key not in usr.__dict__.keys():
+                raise ValueError
+            setattr(usr, key, kwargs[key])
+        self._session.commit()
