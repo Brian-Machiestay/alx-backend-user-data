@@ -8,6 +8,8 @@ from sqlalchemy.ext.declarative import declarative_base  # type: ignore
 from sqlalchemy.orm import sessionmaker  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
 from user import User  # type: ignore
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 
 from user import Base  # type: ignore
 
@@ -39,3 +41,10 @@ class DB:
         self._session.add(usr)
         self._session.commit()
         return usr
+
+    def find_user_by(self, **kwargs):
+        """filter user by key worded arguments"""
+        objs = self._session.query(User).filter_by(**kwargs).first()
+        if objs is None:
+            raise NoResultFound
+        return objs
