@@ -11,6 +11,7 @@ from typing import Any, List
 from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
 from api.v1.auth.session_auth import SessionAuth
+from api.v1.auth.session_exp_auth import SessionExpAuth
 
 
 app = Flask(__name__)
@@ -25,6 +26,8 @@ if __name__ == '__main__':
         auth = BasicAuth()
     elif os.environ['AUTH_TYPE'] == 'session_auth':
         auth = SessionAuth()
+    elif os.environ['AUTH_TYPE'] == 'session_exp_auth':
+        auth = SessionExpAuth()
 
 
 @app.errorhandler(404)
@@ -60,7 +63,6 @@ def before_request() -> None:
     if auth.session_cookie(request) is None and \
        auth.authorization_header(request) is None:
         abort(401)
-        
     if auth.current_user(request) is None:
         abort(403)
     request.current_user = auth.current_user(request)

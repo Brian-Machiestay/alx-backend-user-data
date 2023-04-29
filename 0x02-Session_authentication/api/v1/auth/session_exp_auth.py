@@ -2,7 +2,7 @@
 """create session auth that expires"""
 from api.v1.auth.session_auth import SessionAuth
 import os
-from datatime import datetime
+from datetime import datetime, timedelta
 
 
 class SessionExpAuth(SessionAuth):
@@ -35,7 +35,17 @@ class SessionExpAuth(SessionAuth):
             return None
         if not self.user_id_by_session_id[session_id]['created_at']:
             return None
-        if self.user_id_by_session_id[session_id]['created_at']
         if self.session_duration <= 0:
             return self.user_id_by_session_id[session_id]['user_id']
-            
+        create_at = self.user_id_by_session_id[session_id]['created_at']
+        create_at_delta = timedelta(hours=create_at.hour,
+                                    minutes=create_at.minute,
+                                    seconds=create_at.second)
+        sess_dura_delta = timedelta(seconds=self.session_duration)
+        current = datetime.now()
+        current_delta = timedelta(hours=current.hour,
+                                  minutes=current.minute,
+                                  seconds=current.second)
+        if create_at_delta + sess_dura_delta < current_delta:
+            return None
+        return self.user_id_by_session_id[session_id]['user_id']
