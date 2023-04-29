@@ -27,10 +27,13 @@ def login():
     from api.v1.app import auth
     from api.v1.auth.session_auth import SessionAuth
     from api.v1.auth.session_exp_auth import SessionExpAuth
+    from api.v1.auth.session_db_auth import SessionDBAuth
     if os.environ['AUTH_TYPE'] == 'session_auth':
         auth = SessionAuth()
     if os.environ['AUTH_TYPE'] == 'session_exp_auth':
         auth = SessionExpAuth()
+    if os.environ['AUTH_TYPE'] == 'session_db_auth':
+        auth = SessionDBAuth()
     sess_id = auth.create_session(actual_user.id)
     resp = jsonify(actual_user.to_json())
     cookie_name = os.environ['SESSION_NAME']
